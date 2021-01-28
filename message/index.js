@@ -1695,6 +1695,11 @@ module.exports = msgHandler = async (bocchi = new Client(), message) => {
                 await bocchi.sendContact(from, ownerNumber)
                 await bocchi.reply(from, 'Ini Pacar Ku 🥰', id)
             break
+		case 'sewabot':
+                if (!isRegistered) return await bocchi.reply(from, ind.notRegistered(), id)
+                await bocchi.sendContact(from, ownerNumber)
+                await bocchi.reply(from, 'Langsung Aja Chat Owner Ku', id)
+            break	
             case 'igowner':
                 if (!isRegistered) return await bocchi.reply(from, ind.notRegistered(), id)
                 await bocchi.sendText(from, `https://instagram.com/mzakinfl\nPolow Gess 🙏🏻`)
