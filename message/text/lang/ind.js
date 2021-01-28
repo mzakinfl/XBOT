@@ -816,6 +816,11 @@ info corona virus
 Aliases: -
 Usage: *${prefix}corona* negara
 
+38. *${prefix}translate*
+Terjemahkan text.
+Aliases: *trans*
+Usage: *${prefix}translate* teks | kode_bahasa
+
 _Halaman [4]_
     `
 }
@@ -1112,6 +1117,11 @@ Usage: *${prefix}creepyfact*
 Random puisi
 Aliases: -
 Usage: *${prefix}puisi*
+
+34. *${prefix}genshininfo*
+Kirim info karakter Genshin Impact.
+Aliases: *genshin*
+Usage: *${prefix}genshininfo* nama_karakter
 
 _Halaman [7]_
     `
