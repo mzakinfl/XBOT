@@ -632,24 +632,25 @@ module.exports = msgHandler = async (bocchi = new Client(), message) => {
                     await bocchi.reply(from, 'Error!', id)
                 }
             break
-            case 'tiktoknowm': // by: VideFrelan
-                case 'tktnowm':
-                    if (!isPremium) return await bocchi.reply(from, ind.notPremium(), id)
-                    if (!isRegistered) return await bocchi.reply(from, ind.notRegistered(), id)
-                    if (!q) return bocchi.reply(from, `Utuk mendownload tiktok no watermark\ngunakan ${prefix}tiktonowm link\n\nContoh: ${prefix}tiktoknowm https://vt.tiktok.com/ZS3AjTVV/`, id)
-                    if (!isUrl(url) && !url.includes('tiktok.com')) return bocchi.reply(from, `URL Bukan dari Tiktok!`, id)
-                    await bocchi.reply(from, ind.wait(pushname), id)
-                    downloader.tikNoWm(url)
-                        .then(async (res) => {
-                            fs.writeFileSync(`./temp/${sender.id}.mp4`, res)
-                            await bocchi.sendFile(from, `./temp/${sender.id}.mp4`, 'nowm.mp4', '', id)
-                            console.log('Success sending TikTok video with no WM!')
-                            fs.unlinkSync(`./temp/${sender.id}.mp4`)
-                        })
-                        .catch(async (err) => {
-                            console.error(err)
-                            await bocchi.reply(from, 'Error!', id)
-                        })
+            case 'tiktoknowm': // By:XBot Ini WM Bang
+            case 'tktnowm':
+                if (!isRegistered) return await bocchi.reply(from, ind.notRegistered(), id)
+                if (!isUrl(url) && !url.includes('tiktok.com')) return await bocchi.reply(from, ind.wrongFormat(), id)
+                await bocchi.reply(from, ind.wait(pushname), id)
+                downloader.tikNoWm(url)
+                .then(async ({result}) => {
+                    await bocchi.sendFileFromUrl(from, result.thumb, 'TiktokNoWM.jpg', `➸ *Username*: ${result.username}\n➸ *Caption*: ${result.caption}\n➸ *Uploaded on*: ${result.uploaded_on}\n\nSedang dikirim, sabar ya...`, id)
+                    const responses = await fetch(result.link);
+                    const buffer = await responses.buffer();
+                    fs.writeFileSync(`./temp/${sender.id}.mp4`, buffer)
+                  await bocchi.sendFile(from, `./temp/${sender.id}.mp4`, `TikTokNoWM.mp4`, '', id)
+                    console.log('Success sending TikTok video with no WM!')
+                    fs.unlinkSync(`./temp/${sender.id}.mp4`)
+                })
+                .catch(async (err) => {
+                    console.error(err)
+                    await bocchi.reply(from, 'Error!', id)
+                })
                 break
                 case 'tiktok':
                     if (!isRegistered) return await bocchi.reply(from, ind.notRegistered(), id)
